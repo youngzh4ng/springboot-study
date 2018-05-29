@@ -1,0 +1,34 @@
+spring:
+  profiles:
+    active: test
+server:
+  servlet:
+    context-path: /test
+  main:
+    banner-mode: log
+app:
+ name: Spring Boot Test
+ description: ${app.name} is a Spring Boot application
+ grade: grade
+ servers:
+    - 'server1'
+    - 'server2'
+ security:
+    username: zhangyo
+    password: password1
+logging:
+  file: logs/log.log
+  level:
+    root: warn
+---
+spring:
+  profiles: test
+app:
+  name: Spring Boot Test - dev
+  description: ${app.name} is a Spring Boot application -dev
+  servers:
+      - 'server1 -dev'
+      - 'server2 -dev'
+  security:
+      username: zhangyo -dev
+      password: password1 -dev

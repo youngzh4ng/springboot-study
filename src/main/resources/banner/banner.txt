@@ -1,0 +1,1 @@
+Hello World ${application.title} - ${application.version} - ${spring-boot.version} - ${spring-boot.formatted-version} -${application.title}

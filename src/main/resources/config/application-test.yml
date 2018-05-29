@@ -1,0 +1,12 @@
+spring:
+  banner:
+    location: banner/banner.txt
+    image:
+      location: banner/banner.jpg
+com:
+  test:
+    name: test
+    number: ${random.int}
+server:
+  port: 8080
+debug: true
