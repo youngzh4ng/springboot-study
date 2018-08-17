@@ -21,7 +21,7 @@ public class MyBean implements ApplicationRunner {
     @Value("${com.test.number}")
     public int intValue;
 
-    //please add program arguments --debug logfile.txt
+    //please add program arguments mvn spring-boot:run -Dspring-boot.run.arguments="argOne,argTwo"
     @Autowired
     public MyBean(ApplicationArguments args) {
         boolean debug = args.containsOption("debug");
@@ -32,6 +32,7 @@ public class MyBean implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         System.out.println("this is Application Runner. in MyBean");
+        System.out.println("com.test.name is "+ name);
     }
 
     public String getName() {

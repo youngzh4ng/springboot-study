@@ -3,10 +3,25 @@ spring:
     location: banner/banner.txt
     image:
       location: banner/banner.jpg
+  profiles:
+    include:
+      - testdb
+
 com:
   test:
     name: test
     number: ${random.int}
 server:
   port: 8080
+  servlet:
+    context-path: /test
 debug: true
+app:
+  list:
+    - name: my name in test
+  map:
+    key1:
+      name: dev name in test
+    key2:
+      name: dev name in test
+      description: dev description in test

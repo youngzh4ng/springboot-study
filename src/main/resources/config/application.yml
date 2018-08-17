@@ -1,25 +1,73 @@
 spring:
   profiles:
     active: test
+#  mvc:
+#    static-path-pattern: /assets/**
+  resources:
+    static-locations: classpath:/static/, classpath:/html/, classpath:/view/, classpath:/icon/
+  mvc:
+    contentnegotiation:
+      favor-parameter: true
+      parameter-name: wantFormat
+      favor-path-extension: true
+      media-types:
+        iwantajson: application/json
+        html: text/html
+    pathmatch:
+      use-registered-suffix-pattern: true
+  datasource:
+    url: jdbc:h2:mem:testdb;Mode=Oracle
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+    platform: h2
+    continue-on-error: true
+    schema: classpath:/db/schema-h2.sql
+    data: classpath:/db/data-h2.sql
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: true
+        web-allow-others: true
+      path: /h2
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
 server:
   servlet:
-    context-path: /test
+    context-path: /test1
   main:
     banner-mode: log
 app:
- name: Spring Boot Test
- description: ${app.name} is a Spring Boot application
- grade: grade
- servers:
-    - 'server1'
-    - 'server2'
- security:
+  name: Spring Boot Test
+  description: ${app.name} is a Spring Boot application
+  grade: grade
+  servers:
+  - 'server1 -dev'
+  - 'server2 -dev'
+  security:
     username: zhangyo
     password: password1
+  kebab-case: Kebab Case
+  camelCase: Camel Case
+  underscoreNotation: Underscore Notation
+  UPPER_CASE: Upper Case
+  list:
+  - name: my name default
+    description: my description default
+  - name: my name 2 default
+    description: my description 2 default
+  map:
+    key1:
+      name: my name default
+      description: my description default
 logging:
   file: logs/log.log
   level:
-    root: warn
+    root: info
 ---
 spring:
   profiles: test
@@ -32,3 +80,17 @@ app:
   security:
       username: zhangyo -dev
       password: password1 -dev
+  kebab-case: Kebab Case
+  camelCase: Camel Case
+  underscoreNotation: Underscore Notation
+  UPPER_CASE: Upper Case
+  list:
+    - name: my name
+      description: my description
+    - name: my name 2
+      description: my description 2
+  map:
+    key1:
+      name: my name
+      description: my description
+
