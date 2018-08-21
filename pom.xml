@@ -70,6 +70,16 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
             <version>${jooq.version}</version>
@@ -84,92 +94,113 @@
             <artifactId>jooq-codegen</artifactId>
             <version>${jooq.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
 
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.1-beta-1</version>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <!-- set to true to skip this overlay. Default value is: false. -->
-                    <!--skip>true</skip -->
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                        <manifestEntries>
-                            <Implementation-Title>${project.groupId}:${project.artifactId}</Implementation-Title>
-                            <Implementation-Vendor>Spring Boot Test</Implementation-Vendor>
-                            <Implementation-Version>${project.version}-${maven.build.timestamp}</Implementation-Version>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.jooq</groupId>
-                <artifactId>jooq-codegen-maven</artifactId>
-                <version>${jooq.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>${mysql.version}</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <jdbc>
-                        <driver>org.h2.Driver</driver>
-                        <url>jdbc:h2:mem:testdb</url>
-                        <user>sa</user>
-                        <password>sa</password>
-                    </jdbc>
-                    <generator>
-                        <database>
-                            <name>org.jooq.util.h2.H2Database</name>
-                            <includes>.*</includes>
-                            <excludes />
-                            <inputSchema>testdb</inputSchema>
-                            <forcedTypes>
-                                <forcedType>
-                                    <name>BOOLEAN</name>
-                                    <types>(?i:TINYINT(\s*\(\d+\))?(\s*UNSIGNED)?)</types>
-                                </forcedType>
-                            </forcedTypes>
-                        </database>
-                        <generate>
-                            <deprecated>false</deprecated>
-                        </generate>
-                        <target>
-                            <packageName>com.test.springboot.jooq.data.jooq</packageName>
-                            <directory>src/main/java</directory>
-                        </target>
-                        <generate>
-                            <pojos>false</pojos>
-                            <daos>false</daos>
-                        </generate>
-                    </generator>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.1-beta-1</version>
+                        <configuration>
+                            <failOnMissingWebXml>false</failOnMissingWebXml>
+                            <!-- set to true to skip this overlay. Default value is: false. -->
+                            <!--skip>true</skip -->
+                            <archive>
+                                <manifest>
+                                    <addClasspath>true</addClasspath>
+                                </manifest>
+                                <manifestEntries>
+                                    <Implementation-Title>${project.groupId}:${project.artifactId}
+                                    </Implementation-Title>
+                                    <Implementation-Vendor>Spring Boot Test</Implementation-Vendor>
+                                    <Implementation-Version>${project.version}-${maven.build.timestamp}
+                                    </Implementation-Version>
+                                </manifestEntries>
+                            </archive>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <fork>true</fork>
+                            <jvmArguments>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8401</jvmArguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jooq</id>
+            <activation>
+                <property>
+                    <name>jooq</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jooq</groupId>
+                        <artifactId>jooq-codegen-maven</artifactId>
+                        <version>${jooq.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <jdbc>
+                                <driver>org.h2.Driver</driver>
+                                <url>jdbc:h2:~/test</url>
+                                <user>sa</user>
+                                <password>sa</password>
+                            </jdbc>
+                            <generator>
+                                <database>
+                                    <name>org.jooq.util.h2.H2Database</name>
+                                    <includes>.*</includes>
+                                    <excludes/>
+                                    <inputSchema>PUBLIC</inputSchema>
+                                    <forcedTypes>
+                                        <forcedType>
+                                            <name>BOOLEAN</name>
+                                            <types>(?i:TINYINT(\s*\(\d+\))?(\s*UNSIGNED)?)</types>
+                                        </forcedType>
+                                    </forcedTypes>
+                                </database>
+                                <generate>
+                                    <deprecated>false</deprecated>
+                                </generate>
+                                <target>
+                                    <packageName>com.test.springboot.jooq.data.jooq</packageName>
+                                    <directory>src/main/java</directory>
+                                </target>
+                                <generate>
+                                    <pojos>true</pojos>
+                                    <daos>true</daos>
+                                </generate>
+                            </generator>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <packaging>war</packaging>
 

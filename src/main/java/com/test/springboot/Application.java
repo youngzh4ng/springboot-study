@@ -5,15 +5,18 @@ import com.test.springboot.listener.event.MyEvent;
 import com.test.springboot.validator.property.SecurityValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.validation.Validator;
 
 @SpringBootApplication
+@EnableCaching
 public class Application extends SpringBootServletInitializer {
 
     @Bean
@@ -39,7 +42,7 @@ public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
-//        app.setWebApplicationType(WebApplicationType.REACTIVE);
+        app.setWebApplicationType(WebApplicationType.REACTIVE);
         app.setAddCommandLineProperties(false);
         ConfigurableApplicationContext context = app.run(args);
         ApplicationEvent event = new MyEvent(new Object());

@@ -7,15 +7,12 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
-import java.util.Optional;
-
 @Component
 public class UserHandler {
 
     public Mono<ServerResponse> getUser(ServerRequest req) {
-        Optional<Object> user = req.attribute("user");
-        String userStr = (String) user.orElse("");
-        System.out.println("get User "  + userStr);
+        String userStr = req.pathVariable("user");
+        System.out.println("get User " + userStr);
         return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN).body(BodyInserters.fromObject("Hello, " + userStr));
     }
 

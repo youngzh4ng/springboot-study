@@ -1,6 +1,6 @@
 package com.test.springboot.route;
 
-import com.test.springboot.handler.UserHandler;
+import com.test.springboot.handler.InternalUserProfileHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -13,11 +13,11 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 
 
 @Configuration
-public class UserRoutingConfiguration {
+public class InternalUserProfileRoutingConfiguration {
 
     @Bean
-    public RouterFunction<ServerResponse> userRouterFunction(UserHandler userHandler) {
-        System.out.println("**************** Initiating UserRoutingConfiguration");
-        return route(GET("/test/user/{user}").and(accept(MediaType.TEXT_PLAIN)), userHandler::getUser);
+    public RouterFunction<ServerResponse> internalUserProfileRouterFunction(InternalUserProfileHandler handler) {
+        System.out.println("**************** Initiating InternalUserProfileRoutingConfiguration");
+        return route(GET("/test/internalUserProfileInIr3/{userId}").and(accept(MediaType.TEXT_PLAIN)), handler::getInternalUserProfileFromIRIS3);
     }
 }

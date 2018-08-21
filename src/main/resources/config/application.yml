@@ -9,14 +9,15 @@ spring:
     contentnegotiation:
       favor-parameter: true
       parameter-name: wantFormat
-      favor-path-extension: true
       media-types:
+        json: application/json
         iwantajson: application/json
         html: text/html
+      favor-path-extension: true
     pathmatch:
       use-registered-suffix-pattern: true
   datasource:
-    url: jdbc:h2:mem:testdb;Mode=Oracle
+    url: jdbc:h2:~/test
     username: sa
     password: sa
     driver-class-name: org.h2.Driver
@@ -36,6 +37,13 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: none
+  data:
+    mongodb:
+      host: hln2389p
+      port: 27024
+      database: hrc
+      username: hrcowner
+      password: hrcowner
 server:
   servlet:
     context-path: /test1
@@ -68,6 +76,9 @@ logging:
   file: logs/log.log
   level:
     root: info
+    org.hibernate.SQL: TRACE
+    org.springframework.data.mongodb.core.MongoTemplate: TRACE
+    org.springframework.boot.autoconfigure: ERROR
 ---
 spring:
   profiles: test
