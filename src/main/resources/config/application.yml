@@ -39,11 +39,41 @@ spring:
       ddl-auto: none
   data:
     mongodb:
-      host: hln2389p
-      port: 27024
-      database: hrc
-      username: hrcowner
-      password: hrcowner
+      host: consultant-01
+      port: 27017
+      database: bwtest
+      username: bwtest
+      password: Password1
+  mail:
+    host: testsmtp3
+    port: 25
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+  quartz:
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: clusteredScheduler
+            instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: QRTZ_
+            isClustered: true
+            clusterCheckinInterval: 10000
+            useProperties: false
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+    job-store-type: jdbc
+#    jdbc:
+#      initialize-schema: always
 server:
   servlet:
     context-path: /test1

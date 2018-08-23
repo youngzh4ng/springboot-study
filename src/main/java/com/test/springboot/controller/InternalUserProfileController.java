@@ -1,7 +1,7 @@
 package com.test.springboot.controller;
 
 import com.test.springboot.domain.InternalUserProfile;
-import com.test.springboot.repository.InternalUserProfileRepository;
+import com.test.springboot.jpa.InternalUserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;

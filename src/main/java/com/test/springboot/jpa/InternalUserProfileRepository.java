@@ -1,4 +1,4 @@
-package com.test.springboot.repository;
+package com.test.springboot.jpa;
 
 import com.test.springboot.domain.InternalUserProfile;
 import org.bson.types.ObjectId;

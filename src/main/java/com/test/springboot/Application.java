@@ -42,7 +42,7 @@ public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Application.class);
-        app.setWebApplicationType(WebApplicationType.REACTIVE);
+//        app.setWebApplicationType(WebApplicationType.REACTIVE);
         app.setAddCommandLineProperties(false);
         ConfigurableApplicationContext context = app.run(args);
         ApplicationEvent event = new MyEvent(new Object());
