@@ -17,6 +17,7 @@ server:
     context-path: /test
 debug: true
 app:
+#  name: Spring Boot Test - dev- in application-test.yml
   list:
     - name: my name in test
   map:
