@@ -1,0 +1,14 @@
+18 Static Content
+19 Path Matching and Content Negotiation
+20 Error Handling ControllerAdvice, ErrorViewResolver
+21 CORS Support
+22 Embedded Database Support
+23 entity
+24 Spring Data JPA Repositories
+25 Jooq
+26 mongodb
+27 RestTemplate/WebClient
+28 Validation
+29 Sending Email
+30 Quartz Scheduler
+31 Testing
