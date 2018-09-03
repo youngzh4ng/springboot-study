@@ -14,3 +14,5 @@
 31 Testing
     Configuration Test
     output capture
+    api tests
+    test rest template
