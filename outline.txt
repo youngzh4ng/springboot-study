@@ -1,3 +1,43 @@
+1 Get Started
+    parent
+    starter-web
+        Starters are a set of convenient dependency descriptors that you can include in your application.
+    [maven plugin]
+    application.java
+2 spring-boot-devtools
+    disable cache
+    auto restart
+    Excluding Resources
+    spring.devtools.restart.enabled
+    restart.exclude.companycommonlibs=/mycorp-common-[\\w-]+\.jar
+    restart.include.projectcommon=/mycorp-myproj-[\\w-]+\.jar
+    LiveReload
+3 banner
+    app.setBannerMode(Banner.Mode.OFF);
+4 events and listeners
+5 config
+    random config
+    config order
+        By default, the configured locations are classpath:/,classpath:/config/,file:./,file:./config/. //default
+        classpath:custom-config/, file:./custom-config/
+        The resulting search order is the following:
+            file:./custom-config/
+            classpath:custom-config/
+            file:./config/
+            file:./
+            classpath:/config/
+            classpath:/
+    Profile-specific Properties
+        spring.profiles.active
+    Placeholders
+    YAML
+    Multi-profile YAML Documents
+    @ConfigurationProperties(prefix="my")
+    Relaxed Binding
+6 Application Arguments
+    (non)option arguments
+    SpringApplication.setAddCommandLineProperties(false).
+    option argument as property
 18 Static Content
 19 Path Matching and Content Negotiation
 20 Error Handling ControllerAdvice, ErrorViewResolver
