@@ -29,32 +29,64 @@
             classpath:/
     Profile-specific Properties
         spring.profiles.active
+        spring.profiles.include
     Placeholders
     YAML
     Multi-profile YAML Documents
     @ConfigurationProperties(prefix="my")
     Relaxed Binding
+    special character in map keys
+        acme:
+          map:
+            "[/key1]": value1
+            "[/key2]": value2
+            /key3: value3
+    merge
+        list
+            replace all
+        map
+            the one with the highest priority is used.
+    validation
+        @Validated
+        @notnull
+        @valid
+            annotation in object
+            configurationPropertiesValidator
 6 Application Arguments
     (non)option arguments
     SpringApplication.setAddCommandLineProperties(false).
     option argument as property
-18 Static Content
-19 Path Matching and Content Negotiation
-20 Error Handling ControllerAdvice, ErrorViewResolver
-21 CORS Support
-22 Embedded Database Support
-23 entity
-24 Spring Data JPA Repositories
-25 Jooq
-26 mongodb
-27 RestTemplate/WebClient
-28 Validation
-29 Sending Email
-30 Quartz Scheduler
-31 Testing
+7 logging
+8 HttpMessageConverters
+    Fast Json Converter
+    Serializer/Deserializer
+9 Static Content*
+10 Path Matching and Content Negotiation
+11 Error Handling - ControllerAdvice
+12 Error Pages
+13 CORS Support
+14 Spring WebFlux Framework - 非堵塞函数式 Reactive Web
+15 Spring Security
+16 DB-JPA
+    Entity
+    Repository
+    ddl-auto
+    H2
+    JOOQ
+        generation
+        dslContext
+    MongoDB
+17 Caching
+18 Messaging*
+19 Rest WebService Calling
+    Rest Template
+    Web Client
+20 Java Mail Sender
+21 Quartz
+22 Testing
     Configuration Test
     output capture
     api tests
     test rest template
 
-32 Create Own Starter
+23 Create Own Starter
